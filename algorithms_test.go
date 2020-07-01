@@ -1,6 +1,7 @@
 package algorithms
 
 import (
+	"math/rand"
 	"reflect"
 	"testing"
 )
@@ -55,5 +56,18 @@ func TestMergeSort(t *testing.T) {
 		}
 
 		t.Logf("PASS: %v", val.description)
+	}
+}
+
+func BenchmarkMergeSort(b *testing.B) {
+	input := make([]int, 1000000)
+	for i := 0; i < 1000000; i++ {
+		input[i] = rand.Intn(1000000)
+	}
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		for _, val := range mergeSortCases {
+			MergeSort(val.input)
+		}
 	}
 }
